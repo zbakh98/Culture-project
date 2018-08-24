@@ -1,3 +1,7 @@
+	<?php
+		include("includes/DB.php");
+		global $connection_DB;
+	?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,10 +13,11 @@
     <link rel="stylesheet" href="css/Publicstyles.css">
 </head>
 <body>
-	<?php
-		include("includes/DB.php");
-		global $connection_DB;
-		if(isset($_POST['submit']))
+
+		<div class="container">  
+        <div class="row justify-content-sm-center">  
+            <div id="form" class="col-sm-6">
+		<?php if(isset($_POST['submit']))
 		{
 			$pseudo = $_POST['pseudo'];
 			$sql = "SELECT * FROM parrains WHERE pseudo='$pseudo'";
@@ -23,25 +28,27 @@
 				if($data['password'] == $_POST['password'])
 				{
 					$_SESSION['id'] = $data['id'];
-					header('Refresh: 0;url=data.php');
+					header('Refresh: 0;url=start.php');
 				}
 				else
 				{
-					echo "Le mot de passe est incorrecte";
+					?><div class="alert alert-danger" role="alert">
+  							Le mot de passe est incorrecte!
+							</div><?php
 				}
 			}
 			else
 			{
-				echo "Le nom d'utilisateur est incorrecte";
+				?><div class="alert alert-danger" role="alert">
+  						Le nom d'utilisateur est incorrecte!
+						</div><?php
 			}
 		}
 
 	?>
 
 
-	<div class="container">  
-        <div class="row justify-content-sm-center">  
-            <div id="form" class="col-sm-6">
+
 				<form action="login.php" method="post">
 				  	<div class="form-group">
 					    <label for="pseudo">username</label>
