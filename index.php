@@ -23,7 +23,7 @@
                     a, ultrices vitae dolor. Nulla sed commodo quam. Ut vitae fermentum nibh. 
                     Vivamus consectetur leo eu erat euismod porta. Integer fermentum ligula 
                     consectetur finibus lobortis.</p>
-                <button class="form-control btn btn-success" href="login.php">Continue</button>    
+                <a class="form-control btn btn-success" href="login.php">Continue</a>    
             </div>
         </div>      
     </div>      
