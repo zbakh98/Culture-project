@@ -13,53 +13,59 @@
     <link rel="stylesheet" href="css/Publicstyles.css">
 </head>
 <body>
-
-		<div class="container">  
-        <div class="row justify-content-sm-center">  
-            <div id="form" class="col-sm-6">
-		<?php if(isset($_POST['submit']))
-		{
-			$pseudo = $_POST['pseudo'];
-			$sql = "SELECT * FROM parrains WHERE pseudo='$pseudo'";
-			$result = mysql_query($sql);
-			$data=mysql_fetch_array($result);
-			if ($data) 
-			{
-				if($data['password'] == $_POST['password'])
-				{
-					$_SESSION['id'] = $data['id'];
-					header('Refresh: 0;url=start.php');
+	<a href="logout.php">log out</a>
+	<div class="container">  
+    	<div class="row justify-content-sm-center">  
+        	<div id="form" class="col-sm-6">
+        		<?php 
+        		if (empty($_SESSION['id']))
+        		{
+					if(isset($_POST['submit']))
+					{
+						$pseudo = $_POST['pseudo'];
+						$sql = "SELECT * FROM parrains WHERE pseudo='$pseudo'";
+						$result = mysql_query($sql);
+						$data=mysql_fetch_array($result);
+						if ($data) 
+						{
+							if($data['password'] == $_POST['password'])
+							{
+								$_SESSION['id'] = $data['id'];
+								$_SESSION['p_id'] = $data['p_id'];
+								header('Refresh: 0;url=start.php');
+							}
+							else
+							{
+								?><div class="alert alert-danger" role="alert">
+			  							Le mot de passe est incorrecte!
+										</div><?php
+							}
+						}
+						else
+						{
+							?><div class="alert alert-danger" role="alert">
+			  						Le nom d'utilisateur est incorrecte!
+									</div><?php
+						}
+					}
+					?>
+					<form action="login.php" method="post">
+					  	<div class="form-group">
+						    <label for="pseudo">username</label>
+						    <input name="pseudo" type="pseudo" class="form-control" id="pseudo" placeholder="entrer username">
+						</div>
+						<div class="form-group">
+						<label for="password">Password</label>
+						    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+					  	</div>
+					  	<button type="submit" class="btn btn-success form-control" name="submit">Submit</button>
+					</form><?php
 				}
 				else
 				{
-					?><div class="alert alert-danger" role="alert">
-  							Le mot de passe est incorrecte!
-							</div><?php
+					echo "vous etes deja connecte";
 				}
-			}
-			else
-			{
-				?><div class="alert alert-danger" role="alert">
-  						Le nom d'utilisateur est incorrecte!
-						</div><?php
-			}
-		}
-
-	?>
-
-
-
-				<form action="login.php" method="post">
-				  	<div class="form-group">
-					    <label for="pseudo">username</label>
-					    <input name="pseudo" type="pseudo" class="form-control" id="pseudo" placeholder="entrer username">
-				  	</div>
-				  	<div class="form-group">
-					    <label for="password">Password</label>
-					    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-				  	</div>
-				  	<button type="submit" class="btn btn-success form-control" name="submit">Submit</button>
-				</form>
+				?>
 			</div>
 		</div>
 	</div>
