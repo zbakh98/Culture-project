@@ -7,4 +7,5 @@
 	else{
     	echo 'not connected';
 	}
+	session_start();
 ?>
